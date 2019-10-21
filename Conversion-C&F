@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="icon" href="https://maeyler.github.io/favicon.ico">
+    <title> CONVERSION BETWEEN CELCIUS & FAHRENHEIT </title>
+
+  <style> /* CSS comment */
+    body { max-width: 440px; }
+    #inp { width: 50px }
+    #out {
+        font-size: 18px;
+        background: blue;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+  </style>
+</head>
+
+<body>   <!-- HTML comment: Modify all items marked xxx -->
+
+<h2 id=title>CONVERSION</h2>
+Enter a temperature value
+<input type=number id=temperature>
+&emsp; <br/> 
+
+<input type="radio" name="unit" value="celcius" onclick="conversion('c');"> Celcius <br />
+<input type="radio" name="unit" value="fahrenheit" onclick="conversion('f')"> Fahrenheit <br />
+
+<p id=out> </p>
+
+<script>
+function conversion(param) {
+  temperature = document.getElementById("temperature").value;
+  if(param=="f"){
+    sonuc=(temperature-32)/1.8;
+  }
+  if(param=="c"){
+    sonuc=(1.8*temperature)+32;
+  }
+  document.getElementById("out").innerHTML=sonuc
+}
+</script>
+
+</body>
+</html>
