@@ -1,0 +1,95 @@
+<html lang="en-US"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>  POISSON TABLE </title>
+
+<!--   <style> /* CSS comment */
+    body { max-width: 440px; }
+    #inp { width: 50px }
+    #out {
+        font-size: 18px;
+        background: blue;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+  </style> -->
+</head>
+
+<body>   <!-- HTML comment: Modify all items marked xxx -->
+
+<h2 id="title"> POISSON TABLE </h2>
+
+<table>
+
+  <tr>
+    <th>  </th>
+    <th> <pre>λ = 0.5 </pre> </th>
+    <th> <pre>λ = 1</pre>  </th>
+    <th> <pre>λ = 1.5</pre>  </th>
+    <th> <pre>λ = 2</pre>  </th>
+    <th> <pre>λ = 2.5</pre>  </th>
+    <th> <pre>λ = 3</pre>  </th>
+  </tr>
+
+  <tr>
+    <th> x = 0 </th>  <td>  poisson(λ, 0) </td> <!-- Burada kullanmam gereken script'in içindeki fonksiyonu çağırma fonksiyonunu bulamadım. -->
+  </tr>
+
+  <tr>
+    <th> x = 1 </th>  <td>  poisson(λ, 1) </td> 
+  </tr>
+
+  <tr>
+    <th> x = 2 </th>  <td>  poisson(λ, 2) </td> 
+  </tr>
+
+  <tr>
+    <th> x = 3 </th>  <td>  poisson(λ, 3) </td> 
+  </tr>
+  
+  <tr>
+    <th> x = 4 </th>  <td>  poisson(λ, 4) </td> 
+  </tr>
+  
+  <tr>
+    <th> x = 5 </th>  <td>  poisson(λ, 5) </td> 
+  </tr>
+
+  <tr>
+    <th> x = 6 </th>  <td>  poisson(λ, 6) </td> 
+  </tr>
+    
+  <tr>
+    <th> x = 7 </th>  <td>  poisson(λ, 7) </td> 
+  </tr>
+    
+  <tr>
+    <th> x = 8 </th>  <td>  poisson(λ, 8) </td> 
+  </tr>
+
+</table>
+
+<script>
+const λ = [0.5, 1, 1.5, 2, 2.5, 3]
+p = []
+
+function fact(x) {
+   if(x==0) {
+      return 1
+   }
+   return x * fact(x-1)  
+}
+
+function poisson(x) {
+  for(i=0; i<9; i++){
+    a = ( Math.exp(-λ) * ( Math.pow(λ, x) ) / (fact(x)) ).toFixed(4)
+    p = a.push
+    return p
+  }
+}
+
+</script>
+
+
+</body></html>
