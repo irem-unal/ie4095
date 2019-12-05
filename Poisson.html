@@ -1,0 +1,88 @@
+<html lang="en-US"><head>
+    <meta charset="UTF-8">
+    <meta λ = 0.5="viewport" content="width=device-width">
+    <title>  POISSON TABLE </title>
+
+<style> /* CSS comment */
+    body { max-width: 440px; }
+    #inp { width: 50px }
+    td {
+        border : 1px solid pink ;
+        background: blue;
+        color: white;
+        text-align: center;
+        padding: 10px;
+    }
+  </style> 
+
+</head>
+
+<body>  
+
+<h2 id="title"> POISSON TABLE </h2>
+
+<div id="poissonProbabilities"></div>
+
+<table id="poissonTable" >
+
+</table> 
+
+<script>
+const PROBABILITIES = [
+    {event : "x=0" , "λ = 0.5": poisson(0,0.5), "λ = 1": poisson(0,1), "λ = 1.5": poisson(0,1.5), "λ = 2": poisson(0,2)},
+    {event : "x=1" , "λ = 0.5": poisson(1,0.5), "λ = 1": poisson(1,1), "λ = 1.5": poisson(1,1.5), "λ = 2": poisson(1,2)},
+    {event : "x=2" , "λ = 0.5": poisson(2,0.5), "λ = 1": poisson(2,1), "λ = 1.5": poisson(2,1.5), "λ = 2": poisson(2,2)},
+    {event : "x=3" , "λ = 0.5": poisson(3,0.5), "λ = 1": poisson(3,1), "λ = 1.5": poisson(3,1.5), "λ = 2": poisson(3,2)},
+    {event : "x=4" , "λ = 0.5": poisson(4,0.5), "λ = 1": poisson(4,1), "λ = 1.5": poisson(4,1.5), "λ = 2": poisson(4,2)},
+    {event : "x=5" , "λ = 0.5": poisson(5,0.5), "λ = 1": poisson(5,1), "λ = 1.5": poisson(5,1.5), "λ = 2": poisson(5,2)},
+    {event : "x=6" , "λ = 0.5": poisson(6,0.5), "λ = 1": poisson(6,1), "λ = 1.5": poisson(6,1.5), "λ = 2": poisson(6,2)},
+    {event : "x=7" , "λ = 0.5": poisson(7,0.5), "λ = 1": poisson(7,1), "λ = 1.5": poisson(7,1.5), "λ = 2": poisson(7,2)},
+    {event : "x=8" , "λ = 0.5": poisson(8,0.5), "λ = 1": poisson(8,1), "λ = 1.5": poisson(8,1.5), "λ = 2": poisson(8,2)}
+  ];
+const rate = [0.5, 1, 1.5, 2, 2.5, 3]
+p = []
+
+function fact(x) {
+   if(x==0) {
+      return 1
+   }
+   return x * fact(x-1)  
+}
+
+function poisson(x,λ) {
+    a = ( Math.exp(-λ) * ( Math.pow(λ, x) ) / (fact(x)) )
+    return a.toFixed(4)
+}
+
+function buildTable(data) {
+    let table = document.createElement("table");
+  
+    let fields = Object.keys(data[0]);
+    let headRow = document.createElement("tr");
+    fields.forEach(function(field) {
+      let headCell = document.createElement("th");
+      headCell.appendChild(document.createTextNode(field));
+      headRow.appendChild(headCell);
+    });
+    table.appendChild(headRow);
+    data.forEach(function(object) {
+      let row = document.createElement("tr");
+      fields.forEach(function(field) {
+        let cell = document.createElement("td");
+        cell.appendChild(document.createTextNode(object[field]));
+        if (typeof object[field] == "number") {
+          cell.style.textAlign = "right";
+        }
+        row.appendChild(cell);
+      });
+      table.appendChild(row);
+    });
+    return table;
+  }
+  document.querySelector("#poissonProbabilities")
+    .appendChild(buildTable(PROBABILITIES));
+
+</script>
+
+</body>
+</html>
