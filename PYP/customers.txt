@@ -1,0 +1,3 @@
+mü	Marmara Üniversitesi
+iü	İstanbul Üniversitesi
+hü	Hacettepe Üniversitesi

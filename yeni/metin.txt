@@ -1,1 +1,0 @@
-t restore --staged <file>..." to unstag

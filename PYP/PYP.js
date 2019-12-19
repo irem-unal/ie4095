@@ -37,7 +37,9 @@ class Order {
         return this.cust + " " + this.prod + " " 
     }
 }
-var products 
+
+//Global variables
+var products  = []
 var customers = []
 var orders = []
 function samples (){
