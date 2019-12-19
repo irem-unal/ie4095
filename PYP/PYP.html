@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <script src="PYP.js"></script>
     <title>2-Boyutlu Palet Yükleme Problem Çözümü </title>
     <style>
         body { 
@@ -32,6 +33,10 @@
             left: 5px; 
             top: 20px;
         }
+        #dialog {
+            width: 200px;
+            border: 1px solid blueviolet;
+        }
       </style>
 </head>
 
@@ -48,10 +53,22 @@
     cm
 </p>
 <p>Müşteri Bilgileri
-    <input type=button value="Müşteri Ekle" onclick="newTab()">
+    <pre id=cust></pre>
 </p>
+<p>Ürün Bilgileri
+    <pre id=prod></pre>
+</p>
+<input id="start" type=button value="Sipariş Ekle" onclick="startOrder()">
+<div id=dialog hidden>
+    Customer ID: <input id=customer type=text class="girdi"> <br>
+    Product ID: <input id=product type=text class="girdi"> <br>
+    Amount: <input id=amount type=number class="girdi"> <br>
+    <input id="ekle" type=button value="Ekle" onclick="endOrder()">
+</div>
+
 </center> 
 <script> 
+"use strict"
     function newTab() { 
         window.open("TabloEkran%C4%B1.html", "Müşteri"); 
     } 
@@ -66,12 +83,26 @@
         report(++counter)
     }
 
-    function drawTable() {
-
-
+    function startOrder() {
+        dialog.hidden = false
+        start.style.display = "none"
+        ekle.style.display = "inline"
+    }
+    
+    function endOrder() {
+        let c = customers.find(x => (x.id == customer.value))
+        let p = products.find(x => (x.id == product.value))
+        let x = new Order(c,p,10)
+        console.log(x);orders.push(x)
+        dialog.hidden = true
+        start.style.display = "inline"
+        ekle.style.display = "none"
     }
 
     title.innerText = document.title
+    samples()
+    cust.innerText = customers.join("\n")
+    prod.innerText = products.join("\n")
 </script> 
 
 </body>
