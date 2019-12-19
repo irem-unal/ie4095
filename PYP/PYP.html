@@ -1,0 +1,77 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>2-Boyutlu Palet Yükleme Problem Çözümü </title>
+    <style>
+        body { 
+            max-width: 600px;
+            font: 17px sans-serif;
+        }
+        #sample { overflow-x: auto; }
+        table { border-collapse: collapse; }
+        th { color: blue; padding: 5px 5px; }
+        td { 
+            border: 1px solid blue; 
+            padding: 5px 5px; 
+            text-align: center; 
+            position: relative;
+        }
+        td:hover .tip {
+            visibility: visible;
+        }
+        td .tip {
+            visibility: hidden;
+            font-size: medium;
+            background-color: blue;
+            color: white;
+            text-align: center;
+            padding: 5px 5px;
+            position: absolute;
+            left: 5px; 
+            top: 20px;
+        }
+      </style>
+</head>
+
+<body>
+<center>
+<h2 id=title></h2>
+
+<p>Palet Boyutu:
+    en=
+    <input type=number>
+    cm x
+    boy=
+    <input type=number>
+    cm
+</p>
+<p>Müşteri Bilgileri
+    <input type=button value="Müşteri Ekle" onclick="newTab()">
+</p>
+</center> 
+<script> 
+    function newTab() { 
+        window.open("TabloEkran%C4%B1.html", "Müşteri"); 
+    } 
+
+    function countInit() {
+        if (!localStorage.counter) 
+         localStorage.counter = 0
+         report(++localStorage.counter)
+    }
+
+    function countCont() {
+        report(++counter)
+    }
+
+    function drawTable() {
+
+
+    }
+
+    title.innerText = document.title
+</script> 
+
+</body>
+</html>
