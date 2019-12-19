@@ -7,7 +7,7 @@ class Product {
         this.brittle = brittle
     }
     toString() {
-        return this.id+" ("+this.wid+"x"+this.len+")"
+        return this.id+" ("+this.wid+"x"+this.len+") "+this.brittle
     }
 }
 
@@ -21,7 +21,7 @@ class Customer {
         this.order.push(x)
     }
     toString() {
-        return this.id + " " + this.name
+        return this.id+" -- "+this.name
     }
 }
 
@@ -34,7 +34,7 @@ class Order {
         cust.addOrder(this)
     }
     toString(){
-        return this.cust + " " + this.prod + " " 
+        return this.cust.id+"  "+this.amount+"  "+this.prod.id
     }
 }
 
@@ -42,7 +42,8 @@ class Order {
 var products  = []
 var customers = []
 var orders = []
-function samples (){
+
+function samples (){ //moved to data file, not used any more
     let p1 = new Product(4,20,35,2)
     let p2 = new Product(5,40,35,1)
     let p3 = new Product(6,25,40)
@@ -51,3 +52,32 @@ function samples (){
     customers.push(new Customer("iü", "İstanbul Üniversitesi"))
     customers.push(new Customer("hü", "Hacettepe Üniversitesi"))
 }
+
+const DATA_URL = "https://maeyler.github.io/ie4095/PYP/";
+function readCust() {
+    function toObject(t) {
+      for (let s of t.split('\n')) {
+        if (s == '') break
+        let [id, name] = s.split('\t'); //TAB
+        customers.push(new Customer(id, name))
+      }
+      console.log('customers.length =', customers.length); 
+      cust.innerText += customers.join("\n")
+      readProd()
+    }
+    fetch(DATA_URL+'customers.txt').then(x => x.text()).then(toObject)
+}
+function readProd() {
+    function toObject(t) {
+      for (let s of t.split('\n')) {
+        if (s == '') break
+        let [id, wid, len, b] = s.split('\t'); //TAB
+        products.push(new Product(id, wid, len, b))
+      }
+      console.log('products.length =', products.length); 
+      prod.innerText += products.join("\n")
+    }
+    fetch(DATA_URL+'products.txt').then(x => x.text()).then(toObject)
+}
+
+

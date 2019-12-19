@@ -7,10 +7,10 @@
     <style>
         body { 
             max-width: 600px;
-            font: 17px sans-serif;
+            font: 16px sans-serif;
         }
         #sample { overflow-x: auto; }
-        .girdi { width: 50px } /* "#" id için, "." class için */
+        .girdi { width: 40px } /* "#" id için, "." class için */
         table { border-collapse: collapse; }
         th { color: blue; padding: 5px 5px; }
         td { 
@@ -35,6 +35,8 @@
         }
         #dialog {
             width: 200px;
+            padding: 10px;
+            line-height: 2;
             border: 1px solid blueviolet;
         }
       </style>
@@ -52,12 +54,16 @@
     <input type=number class="girdi">
     cm
 </p>
-<p>Müşteri Bilgileri
-    <pre id=cust></pre>
-</p>
-<p>Ürün Bilgileri
-    <pre id=prod></pre>
-</p>
+
+<pre id=cust>
+Müşteri Bilgileri
+</pre>
+
+<pre id=prod>
+Ürün Bilgileri
+id  enxboy K
+</pre>
+
 <input id="start" type=button value="Sipariş Ekle" onclick="startOrder()">
 <div id=dialog hidden>
     Customer ID: <input id=customer type=text class="girdi"> <br>
@@ -65,6 +71,11 @@
     Amount: <input id=amount type=number class="girdi"> <br>
     <input id="ekle" type=button value="Ekle" onclick="endOrder()">
 </div>
+
+<pre id=ordr>
+Sipariş Bilgileri
+Müş Adet Ürün
+</pre>
 
 </center> 
 <script> 
@@ -92,17 +103,26 @@
     function endOrder() {
         let c = customers.find(x => (x.id == customer.value))
         let p = products.find(x => (x.id == product.value))
-        let x = new Order(c,p,10)
-        console.log(x);orders.push(x)
+        if (c && p) {
+          let x = new Order(c, p, amount.value)
+          console.log(x);orders.push(x)
+          ordr.innerText += x+'\n'
+        } else {
+          console.log("not found")
+        }
+        hideDialog()
+    }
+    function hideDialog() {
         dialog.hidden = true
         start.style.display = "inline"
         ekle.style.display = "none"
     }
 
     title.innerText = document.title
-    samples()
-    cust.innerText = customers.join("\n")
-    prod.innerText = products.join("\n")
+    document.onkeydown = (evt) => {
+      if (evt.key == 'Escape') hideDialog()
+    }
+    readCust()  //samples()
 </script> 
 
 </body>
