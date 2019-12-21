@@ -2,6 +2,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
+    <script src="https://maeyler.github.io/JS/Utilities.js"></script> 
     <script src="PYP.js"></script>
     <title>2-Boyutlu Palet Yükleme Problem Çözümü </title>
     <style>
@@ -48,10 +49,10 @@
 
 <p>Palet Boyutu:
     en=
-    <input type=number class="girdi">
+    <input type=number class=girdi>
     cm x
     boy=
-    <input type=number class="girdi">
+    <input type=number class=girdi>
     cm
 </p>
 
@@ -64,12 +65,16 @@ Müşteri Bilgileri
 id  enxboy K
 </pre>
 
-<input id="start" type=button value="Sipariş Ekle" onclick="startOrder()">
+<input id="start" type=button value="Sipariş Ekle" onclick="showDialog()">
 <div id=dialog hidden>
-    Customer ID: <input id=customer type=text class="girdi"> <br>
-    Product ID: <input id=product type=text class="girdi"> <br>
-    Amount: <input id=amount type=number class="girdi"> <br>
-    <input id="ekle" type=button value="Ekle" onclick="endOrder()">
+    Customer:
+    <input id=customer type=text class=girdi> <br>
+    Product:
+    <input id=product type=text class=girdi> <br>
+    Amount:
+    <input id=amount type=number class=girdi> <br>
+    <input type=button value="Ekle" onclick="endOrder()">
+    <input type=button value="X" onclick="hideDialog()">
 </div>
 
 <pre id=ordr>
@@ -80,49 +85,59 @@ Müş Adet Ürün
 </center> 
 <script> 
 "use strict"
-    function newTab() { 
-        window.open("TabloEkran%C4%B1.html", "Müşteri"); 
-    } 
-
-    function countInit() {
-        if (!localStorage.counter) 
-         localStorage.counter = 0
-         report(++localStorage.counter)
-    }
-
-    function countCont() {
-        report(++counter)
-    }
-
-    function startOrder() {
+    function showDialog() {
         dialog.hidden = false
         start.style.display = "none"
-        ekle.style.display = "inline"
-    }
-    
-    function endOrder() {
-        let c = customers.find(x => (x.id == customer.value))
-        let p = products.find(x => (x.id == product.value))
-        if (c && p) {
-          let x = new Order(c, p, amount.value)
-          console.log(x);orders.push(x)
-          ordr.innerText += x+'\n'
-        } else {
-          console.log("not found")
-        }
-        hideDialog()
+        //ekle.style.display = "inline"
+        customer.focus()
     }
     function hideDialog() {
         dialog.hidden = true
-        start.style.display = "inline"
-        ekle.style.display = "none"
+        start.style.display = ''
+        //ekle.style.display = ''
+    }
+    function endOrder() {
+      function error(elt) {
+        alert(elt.value+" not valid"); elt.focus()
+      }
+        let c = customers.data.find(x => (x.id == customer.value))
+        if (c == null) return error(customer)
+        let p = products.data.find(x => (x.id == product.value))
+        if (p == null) return error(product)
+        let v = amount.value
+        if (v <= 0) return error(amount)
+        // c, p, v are valid
+        let x = new Order(c, p, v)
+        console.log(x); orders.push(x)
+        ordr.innerText += x+'\n'
+        hideDialog()
     }
 
+//Global variables
+var products, customers
+var orders = []
+const DATA_URL = "https://maeyler.github.io/ie4095/PYP/";
+
+function readProd(){
+    let p = new Product(4, 20, 35, 2)  //sample object
+    products = new TabularData(p, 'products')
+    products.readData(DATA_URL+'products.txt', readCust)    
+}
+function readCust() {
+    let c = new Customer("hü", "Hacettepe")
+    customers = new TabularData(c, 'customers')
+    customers.readData(DATA_URL+'customers.txt', showData)    
+}
+function showData() {
+    prod.innerText += products.data.join("\n")
+    cust.innerText += customers.data.join("\n") 
+}
+
     title.innerText = document.title
+    readProd()
     document.onkeydown = (evt) => {
       if (evt.key == 'Escape') hideDialog()
     }
-    readCust()  //samples()
 </script> 
 
 </body>
