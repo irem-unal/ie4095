@@ -7,7 +7,7 @@ class Product {
         this.brittle = brittle
     }
     toString() {
-        return this.id+" ("+this.wid+"x"+this.len+")"
+        return this.id+" ("+this.wid+"x"+this.len+") "+this.brittle
     }
 }
 
@@ -15,13 +15,15 @@ class Customer {
     constructor (id, name) {
         this.id = id
         this.name = name
-        this.order = []
+        //this.order = []
     }
     addOrder (x) {
-        this.order.push(x)
+        if (this.order)
+             this.order.push(x)
+        else this.order = [x]
     }
     toString() {
-        return this.id + " " + this.name
+        return this.id+" -- "+this.name
     }
 }
 
@@ -34,18 +36,7 @@ class Order {
         cust.addOrder(this)
     }
     toString(){
-        return this.cust + " " + this.prod + " " 
+        return this.cust.id+"  "+this.amount+"  "+this.prod.id
     }
 }
-var products 
-var customers = []
-var orders = []
-function samples (){
-    let p1 = new Product(4,20,35,2)
-    let p2 = new Product(5,40,35,1)
-    let p3 = new Product(6,25,40)
-    products = [p1,p2,p3]
-    customers.push(new Customer("mü", "Marmara Üniversitesi"))
-    customers.push(new Customer("iü", "İstanbul Üniversitesi"))
-    customers.push(new Customer("hü", "Hacettepe Üniversitesi"))
-}
+
